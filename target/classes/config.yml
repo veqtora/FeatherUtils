@@ -1,0 +1,31 @@
+# Feather API Integration (FeatherUtils)
+# Heavily inspired by SimpleFeatherIntegration, with extra features
+# v0.0.1
+
+background: server-background.png
+# File name of the server background image (PNG only).
+# Path: plugins/FeatherUtils/backgrounds/
+
+discord-activity:
+
+  enabled: true
+
+  # The image that shows in the activity.
+  image: "DIRECT-LINK-TO-YOUR-IMAGE"
+
+  # The text which shows while hovering over the image.
+  image-text: "Hover text"
+
+  # What is says the player is currently doing.
+  state: "%player_count%/%max_players% Players"
+
+  # Extra details. Goes underneath the image.
+  details: "Playing me.veqtora.net"
+
+join-message:
+
+  enabled: true
+  message: "&6[FeatherUtils] &a%player%&7 joined with Feather!"
+  permission: "featherutils.receivemessages"
+
+prefix: "&6[FeatherUtils] &f"

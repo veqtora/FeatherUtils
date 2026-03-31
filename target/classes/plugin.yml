@@ -1,0 +1,24 @@
+name: FeatherUtils
+version: '1'
+main: me.veqtora.featherUtils.FeatherUtils
+api-version: '1.21'
+prefix: FeatherUtils
+authors: [ Veqtora ]
+description: Allows you to use server backrounds, discord activity, and more.
+depend: [FeatherServerAPI]
+
+commands:
+  featherutils:
+    description: FeatherUtils plugin commands
+    usage: /<command> [reload|help]
+    permission: featherutils.commands.use
+    permission-message: You do not have permission to use this command.
+
+permissions:
+  featherutils.commands.use:
+    description: Allows use of Feather API Integration commands
+    default: op
+
+  featherutils.receivemessages:
+    description: Receive messages when players join using Feather
+    default: true

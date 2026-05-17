@@ -61,7 +61,7 @@ public final class FeatherUtils extends JavaPlugin implements Listener {
         });
 
         // keep Discord synced every 5 seconds
-        Bukkit.getScheduler().runTaskTimer(this, this::updateDiscordActivity, 20L, 100L);
+        Bukkit.getGlobalRegionScheduler().runAtFixedRate(this, task -> updateDiscordActivity(), 20L, 100L);
     }
 
     @Override
@@ -100,12 +100,12 @@ public final class FeatherUtils extends JavaPlugin implements Listener {
     // update instantly when players join/leave (faster sync)
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-        Bukkit.getScheduler().runTaskLater(this, this::updateDiscordActivity, 20L);
+        Bukkit.getGlobalRegionScheduler().runDelayed(this, task -> updateDiscordActivity(), 20L);
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
-        Bukkit.getScheduler().runTaskLater(this, this::updateDiscordActivity, 20L);
+        Bukkit.getGlobalRegionScheduler().runDelayed(this, task -> updateDiscordActivity(), 20L);
     }
 
     private void loadServerListBackground() {

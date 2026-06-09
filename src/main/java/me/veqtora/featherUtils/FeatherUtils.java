@@ -40,27 +40,30 @@ public final class FeatherUtils extends JavaPlugin implements Listener {
 
             getLogger().info(playerName + " is using Feather!");
 
-            // optional join message
-            FileConfiguration config = getConfig();
-            if (config.getBoolean("join-message.enabled", true)) {
+            // Feather events fire off the main thread, so hop back on before touching the Bukkit API
+            Bukkit.getGlobalRegionScheduler().run(this, task -> {
+                // optional join message
+                FileConfiguration config = getConfig();
+                if (config.getBoolean("join-message.enabled", true)) {
 
-                String rawMessage = config.getString("join-message.message", "&a%player%&7 joined with Feather!");
-                String formatted = rawMessage.replace("%player%", playerName).replace("&", "§");
+                    String rawMessage = config.getString("join-message.message", "&a%player%&7 joined with Feather!");
+                    String formatted = rawMessage.replace("%player%", playerName).replace("&", "§");
 
-                String permission = config.getString("join-message.permission");
+                    String permission = config.getString("join-message.permission");
 
-                for (Player online : Bukkit.getOnlinePlayers()) {
-                    if (permission == null || permission.isBlank() || online.hasPermission(permission)) {
-                        online.sendMessage(formatted);
+                    for (Player online : Bukkit.getOnlinePlayers()) {
+                        if (permission == null || permission.isBlank() || online.hasPermission(permission)) {
+                            online.sendMessage(formatted);
+                        }
                     }
                 }
-            }
 
-            // update Discord once for safety
-            updateDiscordActivity();
+                // update Discord once for safety
+                updateDiscordActivity();
+            });
         });
 
-        // keep Discord synced every 5 seconds
+        // keep Discord synced (first run after 1s, then every 5s)
         Bukkit.getGlobalRegionScheduler().runAtFixedRate(this, task -> updateDiscordActivity(), 20L, 100L);
     }
 
@@ -72,6 +75,10 @@ public final class FeatherUtils extends JavaPlugin implements Listener {
 
     public void updateDiscordActivity() {
         FileConfiguration config = getConfig();
+
+        if (!config.getBoolean("discord-activity.enabled", true)) {
+            return;
+        }
 
         int online = Bukkit.getOnlinePlayers().size();
         int max = Bukkit.getMaxPlayers();
@@ -120,7 +127,8 @@ public final class FeatherUtils extends JavaPlugin implements Listener {
         }
 
         String backgroundFile = getConfig().getString("background", "server-background.png");
-        Path imagePath = backgroundsDir.resolve(backgroundFile);
+        // clamp to a plain file name so a config value can't escape the backgrounds directory
+        Path imagePath = backgroundsDir.resolve(Path.of(backgroundFile).getFileName());
 
         if (!Files.exists(imagePath, new LinkOption[0])) {
             getLogger().warning("Background file not found: " + backgroundFile);

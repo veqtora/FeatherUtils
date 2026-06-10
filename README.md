@@ -18,8 +18,9 @@ join message when a Feather player connects.
 
 ## Requirements
 
-- **Paper**, **Spigot**, or **Folia** **1.21.11+** (the plugin uses Folia's region
-  schedulers and declares `folia-supported`, so it runs natively on all three)
+- **Paper**, **Spigot**, or **Folia** **1.21+** (the plugin uses Folia's region
+  schedulers and declares `folia-supported`, so it runs natively on all three).
+  Built against the 1.21.11 API but loads across the whole 1.21 line.
 - [Feather Server API](https://github.com/FeatherMC/feather-server-api/releases/tag/v0.0.5)
 
 ## Installation

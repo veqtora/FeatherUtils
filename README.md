@@ -1,6 +1,6 @@
 # FeatherUtils
 
-A lightweight Paper/Spigot plugin that integrates your Minecraft server with the
+A lightweight Paper/Spigot/Folia plugin that integrates your Minecraft server with the
 [Feather](https://feathermc.com) client. It adds Discord Rich Presence with a live
 player count, a custom server-list background for Feather users, and a configurable
 join message when a Feather player connects.
@@ -18,7 +18,8 @@ join message when a Feather player connects.
 
 ## Requirements
 
-- Paper or Spigot **1.21+**
+- **Paper**, **Spigot**, or **Folia** **1.21+** (the plugin uses Folia's region
+  schedulers and declares `folia-supported`, so it runs natively on all three)
 - [Feather Server API](https://github.com/FeatherMC/feather-server-api/releases/tag/v0.0.5)
 
 ## Installation
